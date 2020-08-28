@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/Marvin9/ratelimit/window"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 )
 
 // NewWindow - will create new window of max api calls, and window duration.

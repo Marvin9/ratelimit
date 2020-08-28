@@ -1,11 +1,14 @@
 package window
 
 import (
+	"context"
 	"encoding/json"
 	"time"
 
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 )
+
+var ctx = context.Background()
 
 type rules struct {
 	maxAPICalls int
@@ -57,7 +60,7 @@ func New(maxAPICalls int, windowSize time.Duration, redisClient *redis.Client) M
 
 func (m *Memory) getStorage(identifier string) (Storage, bool) {
 	var storage Storage
-	serializedStorage, err := m.redisClient.Get(identifier).Result()
+	serializedStorage, err := m.redisClient.Get(ctx, identifier).Result()
 	json.Unmarshal([]byte(serializedStorage), &storage)
 	if err != nil {
 		return storage, false
@@ -67,7 +70,7 @@ func (m *Memory) getStorage(identifier string) (Storage, bool) {
 
 func (m *Memory) setStorage(identifier string, storage Storage) bool {
 	serializedStorage, _ := json.Marshal(storage)
-	err := m.redisClient.Set(identifier, string(serializedStorage), 0).Err()
+	err := m.redisClient.Set(ctx, identifier, string(serializedStorage), 0).Err()
 	if err != nil {
 		return false
 	}
