@@ -9,13 +9,13 @@ var rt = ratelimit.NewWindow(10, time.Second*15)
 // use it in middleware
 func rateLimitMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-        ip := getIP(req)
+		ip := getIP(req)
 
-        // use unique identifier, Consume API.
+		// use unique identifier, Consume API.
 		_, canUseAPI := rt.Use(ip)
 		if !canUseAPI {
-            fmt.Fprintf(w, "API call Limit exceeded. ")
-            return
+		    fmt.Fprintf(w, "API call Limit exceeded. ")
+		    return
 		}
 
 		next(w, req)
