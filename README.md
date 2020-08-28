@@ -10,7 +10,7 @@ var rt = ratelimit.New(10, time.Second*15)
 func rateLimitMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
         ip := getIP(req)
-        
+
         // use unique identifier.
 		_, canUseAPI := rt.Use(ip)
 		if !canUseAPI {
@@ -24,7 +24,7 @@ func rateLimitMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 func main() {
     http.HandleFunc("/hello", rateLimitMiddleware(hello))
-	
+
 }
 
 ```

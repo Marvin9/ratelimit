@@ -1,13 +1,13 @@
-package ratelimit_test
+package window_test
 
 import (
-	"ratelimit"
+	"ratelimit/window"
 	"testing"
 	"time"
 )
 
 func TestRateLimit(t *testing.T) {
-	rt := ratelimit.New(5, time.Second*5)
+	rt := window.New(5, time.Second*5)
 
 	// User can use all APIs in one window without any issue
 	for i := 0; i < 5; i++ {
@@ -17,7 +17,7 @@ func TestRateLimit(t *testing.T) {
 		}
 	}
 
-	rt = ratelimit.New(1, time.Second*5)
+	rt = window.New(1, time.Second*5)
 	// User cannot consume APIs more than limit and in given time window
 	rt.Use("unique")
 	instance, ok := rt.Use("unique")
@@ -25,7 +25,7 @@ func TestRateLimit(t *testing.T) {
 		t.Errorf("Not stopping even after exceeding limit.\nInstance: %v", instance)
 	}
 
-	rt = ratelimit.New(2, time.Second*2)
+	rt = window.New(2, time.Second*2)
 	report, _ := rt.Use("unique")
 	if report.APIUsageLeft != 1 {
 		t.Errorf("Expected %v usage left, got %v.\n", 1, report.APIUsageLeft)
