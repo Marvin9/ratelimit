@@ -1,10 +1,16 @@
 # ratelimit-go
 
+### Prerequisite
+
+	- redis
+
 ```go
 // Initialize
 
+var redisClient = redis.NewClient(&redis.Options{Addr: "localhost:6379"})
+
 // Eg. Consume API maximum 10 times in 15 seconds, reset usage after every 15 seconds
-var rt = ratelimit.NewWindow(10, time.Second*15)
+var rt = ratelimit.NewWindow(10, time.Second*15, redisClient)
 
 // use it in middleware
 func rateLimitMiddleware(next http.HandlerFunc) http.HandlerFunc {
@@ -31,5 +37,3 @@ func main() {
 }
 
 ```
-
-> Note: Implementing redis integration soon.
