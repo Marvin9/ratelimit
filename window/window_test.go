@@ -1,9 +1,10 @@
 package window_test
 
 import (
-	"ratelimit/window"
 	"testing"
 	"time"
+
+	"github.com/Marvin9/ratelimit-go/window"
 )
 
 func TestRateLimit(t *testing.T) {
