@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Marvin9/ratelimit-go/window"
+	"github.com/Marvin9/ratelimit/window"
 )
 
 func TestRateLimit(t *testing.T) {

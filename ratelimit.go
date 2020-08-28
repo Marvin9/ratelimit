@@ -3,7 +3,7 @@ package ratelimit
 import (
 	"time"
 
-	"github.com/Marvin9/ratelimit-go/window"
+	"github.com/Marvin9/ratelimit/window"
 )
 
 // NewWindow - will create new window of max api calls, and window duration.
