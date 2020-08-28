@@ -12,7 +12,10 @@ func rateLimitMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		ip := getIP(req)
 
 		// use unique identifier, Consume API.
-		_, canUseAPI := rt.Use(ip)
+		profiler, canUseAPI := rt.Use(ip)
+
+		log.Prtinf("\nFor %v: \n%v APIs left for usage.\nNext reset: %v", ip, profiler.APIUsageLeft, profiler.NextWindow)
+
 		if !canUseAPI {
 		    fmt.Fprintf(w, "API call Limit exceeded. ")
 		    return
