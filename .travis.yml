@@ -3,5 +3,8 @@ language: go
 go:
     - 1.14.4
 
+service:
+    - redis-server
+
 script:
     - make test
