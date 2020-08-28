@@ -68,7 +68,7 @@ func (m *Memory) Use(uniqueIdentifier string) (Storage, bool) {
 		return *storageInstance, true
 	}
 
-	return Storage{}, false
+	return *storageInstance, false
 }
 
 // Status is used to get number of API usage left & next time to reset APIs
