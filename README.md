@@ -2,7 +2,12 @@
 
 ### Prerequisite
 
-	- redis
+- redis
+
+```
+go get github.com/go-redis/redis/v8
+go get github.com/Marvin9/ratelimit
+```
 
 ```go
 // Initialize
